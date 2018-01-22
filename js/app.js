@@ -100,11 +100,11 @@ Enemy.prototype.update = function(dt) {
         player.x = 200;
         player.y = 550;
         // If no lives left remove enemies and update game message
-        if (this.lives == 0) {
+        if (ui.lives == 0) {
           allEnemies = [];
-          this.text1 = `GAME OVER`;
-          this.text2 = `Press SPACEBAR`;
-          this.text3 = `to play again!`;
+          ui.text1 = `GAME OVER`;
+          ui.text2 = `Press SPACEBAR`;
+          ui.text3 = `to play again!`;
         }
       }
     }
