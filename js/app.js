@@ -1,4 +1,5 @@
-'use strict';
+"use strict";
+
 // Object classes
   // Enemies our player must avoid
 function Enemy() {
@@ -53,14 +54,14 @@ UserInterface.prototype.render = function () {
     ctx.strokeStyle = '#000';
     ctx.lineWidth = 5;
 
-    ctx.strokeText(this.text1, 90, 200,);
-    ctx.fillText(this.text1, 90, 200,);
+    ctx.strokeText(this.text1, 90, 200);
+    ctx.fillText(this.text1, 90, 200);
     ctx.strokeText(this.text2, 30, 300);
     ctx.fillText(this.text2, 30, 300);
     ctx.strokeText(this.text3, 80, 350);
     ctx.fillText(this.text3, 80, 350);
-    ctx.strokeText(this.levelText, 5, 736,);
-    ctx.fillText(this.levelText, 5, 736,);
+    ctx.strokeText(this.levelText, 5, 736);
+    ctx.fillText(this.levelText, 5, 736);
 
     // Draws 1 heart per life left, scaled down from original with a sligth offset so they stack a little
     for (let i = 0; i < this.lives; i++) {
@@ -117,7 +118,7 @@ UserInterface.prototype.update = function(dt) {
 Player.prototype.handleInput = function(key) {
     const self = this;
     //If game over screen is present, press spacebar to reset game and text
-    if (ui.lives == 0) {
+    if (ui.lives === 0) {
         if (key === 'spacebar') {
         ui.lives = 5;
         ui.text1 = ``;
