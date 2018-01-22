@@ -10,6 +10,10 @@ Udacity's Front-end Nanodegree program. Big thanks for the art assets and JavaSc
 Installation and requirements
 ===============================
 
+Github hosted version : https://jiess87.github.io/FroggerClone/
+
+OR
+
 Simply put the containing folder anywhere on your computer and run the index.html file within it.
 
 You will need a modern browser that supports HTLM5 and ES6 (Chrome, Firefox... Internet Explorer doesn't want you to have fun yet).

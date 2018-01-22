@@ -1,9 +1,9 @@
-
+'use strict';
 // Object classes
   // Enemies our player must avoid
 function Enemy() {
-    let orientation = ['left', 'right'];
-    let startX = [0, 101, 202, 303, 404, 505];
+    const orientation = ['left', 'right'];
+    const startX = [0, 101, 202, 303, 404, 505];
 
     // Randomly chooses if the foe will move towards right or left
     this.dir = orientation[Math.round(Math.random())];
@@ -63,7 +63,7 @@ UserInterface.prototype.render = function () {
     ctx.fillText(this.levelText, 5, 736,);
 
     // Draws 1 heart per life left, scaled down from original with a sligth offset so they stack a little
-    for (i = 0; i < this.lives; i++) {
+    for (let i = 0; i < this.lives; i++) {
       ctx.drawImage(Resources.get(this.heartSprite), 450 - i * 30, 676, 50, 85);
     }
 };
@@ -71,23 +71,6 @@ UserInterface.prototype.render = function () {
 
 // Update the object values --- .update prototype functions dt = time delta between ticks
 Player.prototype.update = function(dt) {
-    //If the player sprite makes it to the last row
-    if (this.y < 25) {
-      // Timeout on dt so the user can "see" actually hitting the last line
-      setTimeout(function() {
-        // Send player back to start
-        player.x = 200;
-        player.y = 550;
-
-        // Clear enemies and raises level if all rows are taken
-        if (allEnemies.length == 5) {
-          allEnemies = [];
-          ui.level++;
-        }
-        // Generates new enemy
-        allEnemies.push(new Enemy());
-      }, dt);
-    }
   };
 
 Enemy.prototype.update = function(dt) {
@@ -115,25 +98,24 @@ Enemy.prototype.update = function(dt) {
         ui.lives--;
         player.x = 200;
         player.y = 550;
+        // If no lives left remove enemies and update game message
+        if (this.lives == 0) {
+          allEnemies = [];
+          this.text1 = `GAME OVER`;
+          this.text2 = `Press SPACEBAR`;
+          this.text3 = `to play again!`;
+        }
       }
     }
   };
 
 UserInterface.prototype.update = function(dt) {
     this.levelText = `Level ${this.level}`;
-    // If no lives left, reset player position and update game message
-    if (this.lives == 0) {
-      allEnemies = [];
-      player.x = 200;
-      player.y = 550;
-      this.text1 = `GAME OVER`;
-      this.text2 = `Press SPACEBAR`;
-      this.text3 = `to play again!`;
-    }
 };
 
 // Handle keyboard input from user
 Player.prototype.handleInput = function(key) {
+    const self = this;
     //If game over screen is present, press spacebar to reset game and text
     if (ui.lives == 0) {
         if (key === 'spacebar') {
@@ -152,6 +134,23 @@ Player.prototype.handleInput = function(key) {
             this.x +=100;
         } else if ((key == 'up') && (this.y > 0)) {
             this.y -= 85;
+            //If the player sprite makes it to the last row
+            if (this.y < 25) {
+              // Timeout so the user can "see" actually hitting the last line
+              setTimeout(function() {
+                // Send player back to start
+                self.x = 200;
+                self.y = 550;
+
+                // Clear enemies and raises level if all rows are taken
+                if (allEnemies.length == 5) {
+                  allEnemies = [];
+                  ui.level++;
+                }
+                // Generates new enemy
+                allEnemies.push(new Enemy());
+              }, 500);
+            }
         } else if ((key == 'down') && (this.y < 550)) {
             this.y += 85;
         }
